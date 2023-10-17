@@ -1,0 +1,68 @@
+{% extends "IncomeTaxCalculator/layout.html" %} {% block body %}
+<div>
+  <div class="modal" tabindex="-1" style="display: block;position: relative; align-content  : center;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            Income Tax Calculator
+          </h5>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col">
+                <input name="income" type="text" class="form-control" placeholder="Your Income" aria-label="First name">
+              </div>
+              <div class="col">
+                <select name="timeperiod" class="form-select" aria-label="Default select example">
+                  <option value="Monthly">Monthly</option>
+                  <option value="Yearly">Yearly</option>
+                </select>
+              </div>
+              <div class="col">
+                <input class="btn btn-primary" type="submit" value="Submit">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if results %}
+  <div class="results" style="display: flex;">
+    <div class="modal" tabindex="-1" style="position: relative;display: block;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">By Month</h5>
+          </div>
+          <div class="modal-body">
+            <p>Salary including tax: {{ monthly_salary.salary_before_tax }}</p>
+            <p>Tax deduction: {{ monthly_salary.tax_deduction }}</p>
+            <p>Salary after tax: {{ monthly_salary.salary_after_tax }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" tabindex="-1" style="position: relative;display: block;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">By Year</h5>
+          </div>
+          <div class="modal-body">
+            <p>Salary including tax: {{ yearly_salary.salary_before_tax }}</p>
+            <p>Tax deduction: {{ yearly_salary.tax_deduction }}</p>
+            <p>Salary after tax: {{ yearly_salary.salary_after_tax }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
